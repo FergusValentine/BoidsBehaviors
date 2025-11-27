@@ -3,7 +3,7 @@
 
 Boid::Boid() : m_maxSpeed(1.0f), m_maxForce(0.01f) {}
 
-Boid::Boid(float x, float y, float maxSpeed, float maxForce) 
+Boid::Boid(float x, float y, const float maxSpeed, const float maxForce)
 	: m_position(x, y), m_maxSpeed(maxSpeed), m_maxForce(maxForce) {}
 
 void Boid::Update(Vector2 target)

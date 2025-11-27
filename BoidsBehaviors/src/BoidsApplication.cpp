@@ -4,13 +4,14 @@
 
 #include "Vector2.h"
 #include "Boid.h"
+#include "VertexBuffer.h"
 
 static GLFWwindow* applicationWindow;
 
 static const int boidCount = 1;
 static Boid boids[boidCount];
 
-static const Vector2 target(20.0f, 20.0f);
+static  Vector2 target(20.0f, 20.0f);
 
 static void InitializeOpenGL()
 {
@@ -21,8 +22,6 @@ static void InitializeOpenGL()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	glewInit();
-
     applicationWindow = glfwCreateWindow(800, 600, "Boids Simulation", NULL, NULL);
     if (!applicationWindow)
     {
@@ -31,6 +30,8 @@ static void InitializeOpenGL()
     }
 
 	glfwMakeContextCurrent(applicationWindow);
+    glewInit();
+
     glfwSwapInterval(1);
 
     glEnable(GL_BLEND);
@@ -39,22 +40,13 @@ static void InitializeOpenGL()
 
 static void VertexInitialize()
 {
-    unsigned int vao;
-    glGenVertexArrays(1, &vao);
-
     float vertices[] = {
         -0.5f, -0.5,
         0.5f, -0.5f,
-        0.0f, 0.5f
+        0.0f, 1.0f
     };
 
-    unsigned int vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+	VertexBuffer vertexBuffer(vertices, sizeof(vertices));
 }
 
 static void InitializeBoids()
