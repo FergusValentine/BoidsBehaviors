@@ -11,7 +11,7 @@ static GLFWwindow* applicationWindow;
 static const int boidCount = 1;
 static Boid boids[boidCount];
 
-static  Vector2 target(20.0f, 20.0f);
+static Vector2 target(20.0f, 20.0f);
 
 static void InitializeOpenGL()
 {
@@ -47,6 +47,11 @@ static void VertexInitialize()
     };
 
 	VertexBuffer vertexBuffer(vertices, sizeof(vertices));
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+
+	vertexBuffer.Unbind();
 }
 
 static void InitializeBoids()
