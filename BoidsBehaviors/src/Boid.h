@@ -9,8 +9,6 @@ public:
 	Boid(float x, float y, float maxSpeed, float maxForce);
 	void Update(Vector2 target);
 
-	VertexBuffer* vertex;
-
 	float m_maxSpeed;
 	float m_maxForce;
 

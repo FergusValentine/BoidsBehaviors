@@ -1,5 +1,6 @@
 #include "Vector2.h"
 #include <cmath>
+#include <iostream>
 
 Vector2::Vector2() : m_x(0), m_y(0) {}
 Vector2::Vector2(float x, float y) : m_x(x), m_y(y) {}
@@ -19,14 +20,14 @@ Vector2 Vector2::Multiply(const Vector2& a, const Vector2& b)
 	return Vector2(a.m_x * b.m_x, a.m_y * b.m_y);
 }
 
-Vector2 Vector2::Multiple(const Vector2& a, const float scalar)
+Vector2 Vector2::Multiply(const Vector2& a, const float scalar)
 {
 	return Vector2(a.m_x * scalar, a.m_y * scalar);
 }
 
 Vector2 Vector2::Divide(const Vector2& a, const Vector2& b)
 {
-	return Vector2(a.m_x / a.m_x, a.m_y / a.m_y);
+	return Vector2(a.m_x / b.m_x, a.m_y / b.m_y);
 }
 
 Vector2 Vector2::Divide(const Vector2& a, const float scalar)
@@ -45,4 +46,17 @@ Vector2 Vector2::Normalize(const Vector2& vector)
 	if (magnitude == 0.0f)
 		return Vector2(0.0f, 0.0f);
 	return Vector2(vector.m_x / magnitude, vector.m_y / magnitude);
+}
+
+Vector2 Vector2::LimitMagnitude(const Vector2& vector, const float maxMagnitude)
+{
+	const float magnitude = Magnitude(vector);
+	
+	if (magnitude < maxMagnitude)
+		return vector;
+	else
+	{
+		Vector2 normal = Normalize(vector);
+		return Multiply(normal, maxMagnitude);
+	}
 }
