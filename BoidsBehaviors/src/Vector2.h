@@ -20,20 +20,10 @@ public:
 	Vector2& operator/=(const Vector2& vector);
 	Vector2& operator/=(const float scalar);
 
-	static float Magnitude(const Vector2& vector);
-
+	float Magnitude() const;
 	Vector2 Normalized() const;
-	static Vector2 Normalize(const Vector2& vector);
-
 	Vector2 LimitMagnitude(const float limit) const;
-	static Vector2 LimitMagnitude(const Vector2& vector, const float maxMagnitude);
 
-	//float Magnitude() const;
-	////Vector2 Magnitude(Vector2& vector);
-
-	//void Normalize();
-	//static Vector2 Normalize(const Vector2& vector);
-	//
 	float m_x;
 	float m_y;
 private:
@@ -43,4 +33,8 @@ private:
 	Vector2 Multiply(const float scalar) const;
 	Vector2 Divide(const Vector2& vec) const;
 	Vector2 Divide(const float scalar) const;
+
+	float Magnitude(const Vector2& vector) const;
+	Vector2 Normalized(const Vector2& vector) const;
+	Vector2 LimitMagnitude(const Vector2& vector, const float maxMagnitude) const;
 };

@@ -100,7 +100,7 @@ static void MainLoop()
             glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(pos.m_x, pos.m_y, 0));
 
             Vector2 newPos = boids[i].m_velocity;
-            newPos = Vector2::Normalize(newPos);
+            newPos = newPos.Normalized();
             float r = std::atan2(newPos.m_y, newPos.m_x);
             model = glm::rotate(model, -r, glm::vec3(0.0f, 0.0f, 1.0f));
 
