@@ -31,12 +31,14 @@ Vector2 Vector2::Divide(const float scalar) const{	return Vector2(m_x / scalar, 
 
 // math functions
 float Vector2::Magnitude() const{ return Magnitude(*this); }
+Vector2 Vector2::Normalized() const { return Normalized(*this); }
+Vector2 Vector2::LimitMagnitude(const float limit) const { return LimitMagnitude(*this, limit); }
+
 float Vector2::Magnitude(const Vector2& vector) const
 {
 	return std::sqrt(std::pow(vector.m_x, 2.0f) + std::pow(vector.m_y, 2.0f));
 }
 
-Vector2 Vector2::Normalized() const{ return Normalized(*this); }
 Vector2 Vector2::Normalized(const Vector2& vector) const
 {
 	const float magnitude = Magnitude(vector);
@@ -45,7 +47,6 @@ Vector2 Vector2::Normalized(const Vector2& vector) const
 	return Vector2(vector.m_x / magnitude, vector.m_y / magnitude);
 }
 
-Vector2 Vector2::LimitMagnitude(const float limit) const{ return LimitMagnitude(*this, limit); }
 Vector2 Vector2::LimitMagnitude(const Vector2& vector, const float maxMagnitude) const
 {
 	const float magnitude = Magnitude(vector);

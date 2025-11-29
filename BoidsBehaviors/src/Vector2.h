@@ -6,6 +6,9 @@ public:
 	Vector2();
 	Vector2(float x, float y);
 
+	// WE ARE USING OPENGL, WITH GLM MATH LIB, WHICH ALREADY IMPLEMENTS 90% OF THIS FUNCTIONALITY
+	// REPLACE VECTOR2 WITH GLM::VEC2?? GLM DOES NOT HAVE NORMALIZE MAG OR LIM FUNCS
+
 	Vector2 operator+(const Vector2& vector) const;
 	Vector2 operator-(const Vector2& vector) const;
 	Vector2 operator*(const Vector2& vector) const;

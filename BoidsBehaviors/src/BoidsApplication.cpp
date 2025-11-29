@@ -12,7 +12,7 @@
 
 static GLFWwindow* applicationWindow;
 
-static const int boidCount = 20;
+static const int boidCount = 1000;
 static Boid boids[boidCount];
 
 static Vector2 target(400.0f, 300.0f);
@@ -36,6 +36,10 @@ static void InitializeOpenGL()
 	glfwMakeContextCurrent(applicationWindow);
     glewInit();
 
+    int fbWidth, fbHeight;
+    glfwGetFramebufferSize(applicationWindow, &fbWidth, &fbHeight);
+    glViewport(0, 0, fbWidth, fbHeight);
+
     glfwSwapInterval(1);
 
     glEnable(GL_BLEND);
@@ -46,7 +50,7 @@ static void InitializeBoids()
 {
     for (int i = 0; i < boidCount; ++i)
     {
-        boids[i] = Boid((float)i*100.0f, (float)i * 100.0f, 5.0f, 0.05f);
+        boids[i] = Boid((float)i*10.0f, (float)i * 10.0f, 2.0f, 0.01f);
     }
 }
 
@@ -62,9 +66,9 @@ static void MainLoop()
 {
     //isosceles triangle
     float vertices[] = {
-        -10.0f, -10.0f,
-        10.0f, -10.0f,
-        0.0f, 30.0f
+        -10.0f, -20.0f,
+        10.0f, -20.0f,
+        0.0f, 10.0f
     };
 
     //create vertex array object
@@ -86,8 +90,11 @@ static void MainLoop()
 
     vertexBuffer.Unbind();
     
-    glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-    //glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    int fbWidth, fbHeight;
+    glfwGetFramebufferSize(applicationWindow, &fbWidth, &fbHeight);
+
+    glm::mat4 proj = glm::ortho(0.0f, (float)fbWidth, 0.0f, (float)fbHeight, -1.0f, 1.0f);
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
     while (!glfwWindowShouldClose(applicationWindow))
     {
@@ -97,12 +104,14 @@ static void MainLoop()
         for (int i = 0; i < boidCount; i++)
         {
             Vector2 pos = boids[i].m_position;
-            glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(pos.m_x, pos.m_y, 0));
+            Vector2 vel = boids[i].m_velocity.Normalized();
 
-            Vector2 newPos = boids[i].m_velocity;
-            newPos = newPos.Normalized();
-            float r = std::atan2(newPos.m_y, newPos.m_x);
-            model = glm::rotate(model, -r, glm::vec3(0.0f, 0.0f, 1.0f));
+            float lookDirection = std::atan2(vel.m_y, vel.m_x) - glm::radians(90.0f);
+
+            glm::mat4 model = glm::mat4(1.0f);
+
+            model = glm::translate(model, glm::vec3(pos.m_x, pos.m_y, 0));
+            model = glm::rotate(model, lookDirection, glm::vec3(0.0f, 0.0f, 1.0f));
 
             glm::mat4 mvp = proj * model;
            

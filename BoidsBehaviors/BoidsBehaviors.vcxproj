@@ -131,12 +131,14 @@
   <ItemGroup>
     <ClCompile Include="src\Boid.cpp" />
     <ClCompile Include="src\BoidsApplication.cpp" />
+    <ClCompile Include="src\LinearAlgebra.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Boid.h" />
+    <ClInclude Include="src\LinearAlgebra.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\Vector2.h" />
