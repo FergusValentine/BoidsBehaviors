@@ -8,21 +8,21 @@ Boid::Boid(float x, float y, const float maxSpeed, const float maxForce)
 
 void Boid::Update(Vector2 target)
 {
+	//SEEK BEHAVIOR//
+	//calculate unit vector to target, scale to max_speed
+	//calculate difference between current velocity and target vector, scale by max_force
 	Vector2 vec(target.m_x, target.m_y);
-	vec = Vector2::Subtract(vec, m_position);
-	vec = Vector2::Normalize(vec);
-	vec = Vector2::Multiply(vec, m_maxSpeed);
-	vec = Vector2::Subtract(vec, m_velocity);
-	vec = Vector2::LimitMagnitude(vec, m_maxForce);
+	vec = (vec - m_position).Normalized() * m_maxSpeed;
+	vec = (vec - m_velocity).LimitMagnitude(m_maxForce);
 
-	m_steeringForce = Vector2::Add(m_steeringForce, vec);
+	//add all steering behaviors
+	m_steeringForce += vec;
 
-	// set velocity to target dir, convert to unit vector, scale to max speed
-	m_velocity = Vector2::Add(m_velocity, m_steeringForce);
-	m_velocity = Vector2::LimitMagnitude(m_velocity, m_maxSpeed);
-	m_position = Vector2::Add(m_position, m_velocity);
-
+	//add new steering force to m_velocity, add to position for new position
+	m_velocity = (m_velocity + m_steeringForce).LimitMagnitude(m_maxSpeed);
+	m_position += m_velocity;
+	
 	m_steeringForce = Vector2(0.0f, 0.0f);
 
-	std::cout << "Boid Position: (" << m_position.m_x << ", " << m_position.m_y << ")\n";
+	//std::cout << "Boid Position: (" << m_position.m_x << ", " << m_position.m_y << ")\n";
 }
