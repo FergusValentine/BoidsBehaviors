@@ -10,9 +10,11 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#include "Mesh.h"
+
 static GLFWwindow* applicationWindow;
 
-static const int boidCount = 1000;
+static const int boidCount = 1;
 static Boid boids[boidCount];
 
 static Vector2 target(400.0f, 300.0f);
@@ -71,24 +73,12 @@ static void MainLoop()
         0.0f, 10.0f
     };
 
-    //create vertex array object
-    unsigned int vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-
-    //create triangle buffer
-    VertexBuffer vertexBuffer(vertices, sizeof(vertices));
-    
-    //create triangle buffer layout
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+    Mesh triMesh(vertices, sizeof(vertices));
 
     //create shader
     Shader shader("res/shaders/Vertex.shader", "res/shaders/Fragment.shader");
     shader.Bind();
     shader.SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
-
-    vertexBuffer.Unbind();
     
     int fbWidth, fbHeight;
     glfwGetFramebufferSize(applicationWindow, &fbWidth, &fbHeight);
@@ -114,10 +104,10 @@ static void MainLoop()
             model = glm::rotate(model, lookDirection, glm::vec3(0.0f, 0.0f, 1.0f));
 
             glm::mat4 mvp = proj * model;
-           
+            
             shader.SetUniformMat4f("u_MVP", mvp);
-
-            glDrawArrays(GL_TRIANGLES, 0, 3);
+            shader.Bind();
+            triMesh.DrawMesh();
         }
 
 		UpdateBoids();
