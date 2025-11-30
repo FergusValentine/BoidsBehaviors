@@ -72,18 +72,20 @@ static void MainLoop()
         0.0f, 10.0f
     };
 
-    Mesh triMesh(vertices, sizeof(vertices));
 
-    //create shader
-    Shader shader("res/shaders/Vertex.shader", "res/shaders/Fragment.shader");
-    shader.Bind();
-    shader.SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
-    
     int fbWidth, fbHeight;
     glfwGetFramebufferSize(applicationWindow, &fbWidth, &fbHeight);
 
     glm::mat4 proj = glm::ortho(0.0f, (float)fbWidth, 0.0f, (float)fbHeight, -1.0f, 1.0f);
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+
+    //create shader
+    Shader shader("res/shaders/Vertex.shader", "res/shaders/Fragment.shader");
+    shader.Bind();
+    shader.SetUniformMat4f("u_Projection", proj);
+    shader.Unbind();
+        
+    Mesh triMesh(vertices, sizeof(vertices), &shader);
 
     while (!glfwWindowShouldClose(applicationWindow))
     {
@@ -97,16 +99,10 @@ static void MainLoop()
 
             float lookDirection = std::atan2(vel.m_y, vel.m_x) - glm::radians(90.0f);
 
-            glm::mat4 model = glm::mat4(1.0f);
-
-            model = glm::translate(model, glm::vec3(pos.m_x, pos.m_y, 0));
-            model = glm::rotate(model, lookDirection, glm::vec3(0.0f, 0.0f, 1.0f));
-
-            glm::mat4 mvp = proj * model;
+            glm::vec3 position(pos.m_x, pos.m_y, 0.0f);
+            glm::vec4 colour(0.2f, 0.3f, 0.8f, 1.0f);
             
-            shader.SetUniformMat4f("u_MVP", mvp);
-            shader.Bind();
-            triMesh.DrawMesh();
+            triMesh.DrawMesh(position, lookDirection, colour);
         }
 
 		UpdateBoids();
