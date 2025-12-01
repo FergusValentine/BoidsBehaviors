@@ -46,12 +46,12 @@ void Window::Update()
     glfwSwapBuffers(m_Window);
 }
 
-bool Window::ShouldClose()
+bool Window::ShouldClose() const
 {
     return glfwWindowShouldClose(m_Window);
 }
 
-glm::vec2 Window::GetFramebufferSize()
+glm::vec2 Window::GetFramebufferSize() const
 {
     int w, h;
     glfwGetFramebufferSize(m_Window, &w, &h);

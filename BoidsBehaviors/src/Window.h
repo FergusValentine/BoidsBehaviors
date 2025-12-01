@@ -19,10 +19,12 @@ public:
 	~Window();
 	void Create(WindowSpecification windowSpec);
 	void Update();
-	bool ShouldClose();
+	void Destroy();
 
-	glm::vec2 GetFramebufferSize();
+	bool ShouldClose() const;
+
+	glm::vec2 GetFramebufferSize() const;
 	GLFWwindow* m_Window;
 private:
-	void Destroy();
+	
 };
