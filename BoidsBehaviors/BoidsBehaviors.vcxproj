@@ -134,12 +134,14 @@
     <ClCompile Include="src\BoidsApplication.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
+    <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Boid.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Vector2.h" />
+    <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Fragment.shader" />
