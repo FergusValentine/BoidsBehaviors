@@ -22,6 +22,7 @@ Application::~Application()
 
 void Application::Run()
 {
+    // Create boid manager
     const int boidCount = 1;
     Boid boids[boidCount];
     
@@ -31,6 +32,8 @@ void Application::Run()
 
     }
     Vector2 target(400.0f, 300.0f);
+    //
+
 
     float vertices[] = {
         -10.0f, -20.0f,
@@ -38,6 +41,7 @@ void Application::Run()
         0.0f, 10.0f
     };
 
+    //different func for this
     glm::vec2 frameBufferSize = m_Window.GetFramebufferSize();
     glm::mat4 proj = glm::ortho(0.0f, (float)frameBufferSize.x, 0.0f, (float)frameBufferSize.y, -1.0f, 1.0f);
 
@@ -46,6 +50,7 @@ void Application::Run()
     shader.Bind();
     shader.SetUniformMat4f("u_Projection", proj);
     shader.Unbind();
+    //
 
     Mesh triMesh(vertices, sizeof(vertices), &shader);
 
@@ -66,10 +71,12 @@ void Application::Run()
 
             triMesh.DrawMesh(position, lookDirection, colour);
         }
+        // boids manager
         for (int i = 0; i < boidCount; i++)
         {
             boids[i].Update(target);
         }
+        //
 
         m_Window.Update();
         glfwPollEvents();
