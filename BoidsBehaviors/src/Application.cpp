@@ -59,7 +59,7 @@ void Application::Run()
         glClear(GL_COLOR_BUFFER_BIT);
 
         //abstract to renderer class?
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < boidCount; i++)
         {
             Vector2 pos = boids[i].m_position;
             Vector2 vel = boids[i].m_velocity.Normalized();

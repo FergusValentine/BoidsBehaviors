@@ -20,7 +20,7 @@ void Mesh::DrawMesh(glm::vec3& position, float angle, glm::vec4& colour)
 		return;
 	}
 
-	this->shader->Bind();
+	this->shader->Bind();  
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, position);
@@ -33,7 +33,7 @@ void Mesh::DrawMesh(glm::vec3& position, float angle, glm::vec4& colour)
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
 }
-
+  
 void Mesh::InitRenderData(float* data, unsigned int sizeOfData)
 {
 	unsigned int VBO;

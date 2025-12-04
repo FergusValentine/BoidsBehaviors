@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BoidManager.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Boid.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BoidManager.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Boid.h" />
