@@ -1,13 +1,14 @@
 #pragma once
 
+#include <vector>
 #include "Boid.h"
 
 class BoidManager
 {
 public:
-	unsigned int BoidCount;
-	Boid boids[];
+	BoidManager(size_t size);
+	void UpdateBoids();
 private:
-
+	std::vector<Boid> m_Boids;
 };
 

@@ -4,6 +4,7 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#include "BoidManager.h"
 #include "Boid.h"
 #include "Shader.h"
 #include "Mesh.h"
@@ -23,17 +24,18 @@ Application::~Application()
 void Application::Run()
 {
     // Create boid manager
-    const int boidCount = 1;
+    BoidManager boidManager(1);
+
+    /*const int boidCount = 1;
     Boid boids[boidCount];
     
     for (int i = 0; i < boidCount; ++i)
     {
         boids[i] = Boid((float)i * 10.0f, (float)i * 10.0f, 2.0f, 0.01f);
 
-    }
+    }*/
     Vector2 target(400.0f, 300.0f);
     //
-
 
     float vertices[] = {
         -10.0f, -20.0f,
